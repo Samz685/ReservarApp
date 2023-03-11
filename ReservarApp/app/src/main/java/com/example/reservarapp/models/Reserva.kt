@@ -6,7 +6,7 @@ import java.util.Date
 
 class Reserva {
 
-    var id : Long = 0
+    var id : String = ""
     var grupo : Grupo? = null
     var cliente : Cliente? = null
     var fecha : Date = Date()

@@ -2,7 +2,7 @@ package com.example.reservarapp.models
 
 class Cliente {
 
-    var id : Long = 0
+    var id : String = ""
     var nombre : String = ""
     var telefono : String = ""
     var email : String = ""

@@ -1,9 +1,10 @@
 package com.example.reservarapp
 
-import android.content.ContentValues.TAG
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.reservarapp.controllers.ReservaController
+import com.example.reservarapp.controllers.UsuarioController
 import com.example.reservarapp.models.Cliente
 import com.example.reservarapp.models.Grupo
 import com.example.reservarapp.models.Reserva
@@ -25,9 +26,12 @@ class MainActivity : AppCompatActivity() {
 
 
         var us1: Usuario = Usuario()
-        us1.id = 1
         us1.alias = "Sam"
         us1.email = "sam@email.com"
+
+        var us2: Usuario = Usuario()
+        us2.alias = "Paul"
+        us2.email = "paul@email.com"
 
         var gp1: Grupo = Grupo()
         gp1.id = 1
@@ -48,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
 
         var re: Reserva = Reserva()
-        re.id = 1
         re.cliente = cl
         re.numComensales = 4
         re.disposicion = "Terraza"
@@ -56,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         re.grupo = gp1
 
         var re2: Reserva = Reserva()
-        re2.id = 2
         re2.cliente = cl2
         re2.numComensales = 6
         re2.disposicion = "Interior"
@@ -72,88 +74,17 @@ class MainActivity : AppCompatActivity() {
 //        insertarReserva(re)
 //        insertarReserva(re2)
 
-        leerDatos()
-    }
+//        leerDatos()
+//        reservasByCliente(cl2)
 
-    private fun insertarUsuario(usuario: Usuario) {
-        val db = Firebase.firestore
-        val datos = hashMapOf(
-            "alias" to usuario.alias,
-            "email" to usuario.email,
-            "listaGrupos" to usuario.listaGrupos,
-            "grupoActual" to usuario.grupoActual
-        )
-        db.collection("usuarios").document(usuario.alias).set(datos).addOnSuccessListener {
-            Log.i("Firebase", "Datos insertados correctamente")
-        }.addOnFailureListener { error ->
-            Log.e("FirebaseError", error.message.toString())
-        }
-    }
+//        var usuarioController = UsuarioController()
+//        us1.id = usuarioController.addUsuario(us1)
+//        println("-----------0000000000000000000000000000000000000")
+//        println("Este es el id de usuario: ${us1.id}")
 
-    private fun insertarGrupo(grupo: Grupo) {
-        val db = Firebase.firestore
-        val datos = hashMapOf(
-            "alias" to grupo.alias,
-            "owner" to grupo.owner
-        )
-        db.collection("grupos").document(grupo.alias).set(datos).addOnSuccessListener {
-            Log.i("Firebase", "Datos insertados correctamente")
-        }.addOnFailureListener { error ->
-            Log.e("FirebaseError", error.message.toString())
-        }
-    }
+        var reservaController = ReservaController()
+        re.id = reservaController.addReserva(re)
 
-    private fun insertarReserva(reserva: Reserva) {
-        val db = Firebase.firestore
-        val datos = hashMapOf(
-            "cliente" to reserva.cliente,
-            "fecha" to reserva.fecha,
-            "numComensales" to reserva.numComensales,
-            "disposicion" to reserva.disposicion,
-            "comentario" to reserva.comentario,
-            "grupo" to reserva.grupo
-        )
-        db.collection("reservas").document(reserva.id.toString()).set(datos).addOnSuccessListener {
-            Log.i("Firebase", "Datos insertados correctamente")
-        }.addOnFailureListener { error ->
-            Log.e("FirebaseError", error.message.toString())
-        }
-    }
-
-//    private fun reservarCliente(cliente: Cliente){
-//
-//        val db = Firebase.firestore
-//        val ref = db.collection("usuarios")
-//        ref.whereEqualTo("cliente", cliente).get()
-//            .addOnSuccessListener { documents ->
-//                for (document in documents) {
-//                    val reserva = document.toObject(Reserva::class.java)
-//                    listaReservas.add(reserva)
-//                    println("----------------------00000000000000000000")
-//                    println(reserva.toString())
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//
-//                Log.w(TAG, "Error getting documents: ", exception)
-//            }
-//
-//
-//    }
-
-    fun leerDatos() {
-        var reserva = Reserva()
-        val db = Firebase.firestore
-        db.collection("reservas").get().addOnSuccessListener { result ->
-            for (document in result) {
-                reserva = document.toObject<Reserva>()
-                println("0000000000000-----------------------------0000000000000000000")
-                println(reserva.toString())
-            }
-
-        }.addOnFailureListener { error ->
-            Log.e("FirebaseError", error.message.toString())
-        }
     }
 
 
