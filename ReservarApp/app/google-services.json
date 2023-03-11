@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "470114490799",
+    "project_id": "reservarapp-19277",
+    "storage_bucket": "reservarapp-19277.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470114490799:android:c4c6315e40463faeba775a",
+        "android_client_info": {
+          "package_name": "com.example.reservarapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470114490799-sibgjhsgeospnjp4maauoole3cdnltui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFIdQgco5kNVjTUDywSrjt_IFt-L6jKqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470114490799-sibgjhsgeospnjp4maauoole3cdnltui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
