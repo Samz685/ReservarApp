@@ -5,7 +5,7 @@ import com.example.reservarapp.models.Grupo
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class Grupo {
+class GrupoController {
 
     private fun insertarGrupo(grupo: Grupo) {
         val db = Firebase.firestore

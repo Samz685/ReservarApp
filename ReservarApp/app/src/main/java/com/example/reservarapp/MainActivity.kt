@@ -3,6 +3,7 @@ package com.example.reservarapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.reservarapp.controllers.ClienteController
 import com.example.reservarapp.controllers.ReservaController
 import com.example.reservarapp.controllers.UsuarioController
 import com.example.reservarapp.models.Cliente
@@ -39,13 +40,11 @@ class MainActivity : AppCompatActivity() {
         gp1.owner = us1
 
         var cl: Cliente = Cliente()
-        cl.id = 1
         cl.nombre = "Pepito"
         cl.email = "pepito@email.com"
         cl.telefono = "622622622"
 
         var cl2: Cliente = Cliente()
-        cl2.id = 2
         cl2.nombre = "Juanito"
         cl2.email = "juanito@email.com"
         cl2.telefono = "633633633"
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 //        insertarReserva(re2)
 
 //        leerDatos()
-//        reservasByCliente(cl2)
+
 
 //        var usuarioController = UsuarioController()
 //        us1.id = usuarioController.addUsuario(us1)
@@ -83,7 +82,28 @@ class MainActivity : AppCompatActivity() {
 //        println("Este es el id de usuario: ${us1.id}")
 
         var reservaController = ReservaController()
-        re.id = reservaController.addReserva(re)
+        var clienteController = ClienteController()
+
+
+        var cl3: Cliente = Cliente()
+        cl3.nombre = "Petrica"
+        cl3.email = "petrica@email.com"
+        cl3.telefono = "622622622"
+        cl3.id = clienteController.addCliente(cl3)
+
+
+
+        var re3: Reserva = Reserva()
+        re3.cliente = clienteController.getById(cl3)
+        re3.numComensales = 15
+        re3.disposicion = "Terraza"
+        re3.comentario = "44 Cumpleaños"
+        re3.grupo = gp1
+        re3.id = reservaController.addReserva(re3)
+        println("---------------------------zzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
+        reservaController.addReserva(re3)
+        println(reservaController.getAll())
+        println(reservaController.getByCliente(cl3))
 
     }
 
