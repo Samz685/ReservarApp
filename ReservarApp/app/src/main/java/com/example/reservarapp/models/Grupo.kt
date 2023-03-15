@@ -2,13 +2,13 @@ package com.example.reservarapp.models
 
 class Grupo {
 
-    var id: Long = 0
+    var id: String = ""
     var alias: String = ""
-    var owner: Usuario? = null
-    var admin: Usuario? = null
-
+    var owner: String? = ""
+    var admin: String? = ""
     override fun toString(): String {
-        return "Grupo(id=$id, alias='$alias', owner=${owner?.alias ?: "null"}, admin=${admin?.alias ?: "null"})"
+        return "Grupo(id=$id, alias='$alias', owner=$owner, admin=$admin)"
     }
+
 
 }

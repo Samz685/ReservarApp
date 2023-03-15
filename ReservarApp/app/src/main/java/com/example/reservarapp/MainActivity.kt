@@ -2,17 +2,12 @@ package com.example.reservarapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.reservarapp.controllers.ClienteController
 import com.example.reservarapp.controllers.ReservaController
-import com.example.reservarapp.controllers.UsuarioController
 import com.example.reservarapp.models.Cliente
 import com.example.reservarapp.models.Grupo
 import com.example.reservarapp.models.Reserva
 import com.example.reservarapp.models.Usuario
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,12 +35,12 @@ class MainActivity : AppCompatActivity() {
         gp1.owner = us1
 
         var cl: Cliente = Cliente()
-        cl.nombre = "Pepito"
+        cl.alias = "Pepito"
         cl.email = "pepito@email.com"
         cl.telefono = "622622622"
 
         var cl2: Cliente = Cliente()
-        cl2.nombre = "Juanito"
+        cl2.alias = "Juanito"
         cl2.email = "juanito@email.com"
         cl2.telefono = "633633633"
 
@@ -55,14 +50,14 @@ class MainActivity : AppCompatActivity() {
         re.numComensales = 4
         re.disposicion = "Terraza"
         re.comentario = "Quieren una botella de champán"
-        re.grupo = gp1
+        re.group = gp1
 
         var re2: Reserva = Reserva()
         re2.cliente = cl2
         re2.numComensales = 6
         re2.disposicion = "Interior"
         re2.comentario = "Celebracion de cumpleaños"
-        re2.grupo = gp1
+        re2.group = gp1
 
 
         println("El grupo-------------------")
@@ -86,24 +81,29 @@ class MainActivity : AppCompatActivity() {
 
 
         var cl3: Cliente = Cliente()
-        cl3.nombre = "Petrica"
+        cl3.alias = "Petrica Negru"
         cl3.email = "petrica@email.com"
         cl3.telefono = "622622622"
         cl3.id = clienteController.addCliente(cl3)
 
 
 
-        var re3: Reserva = Reserva()
-        re3.cliente = clienteController.getById(cl3)
-        re3.numComensales = 15
-        re3.disposicion = "Terraza"
-        re3.comentario = "44 Cumpleaños"
-        re3.grupo = gp1
-        re3.id = reservaController.addReserva(re3)
-        println("---------------------------zzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
-        reservaController.addReserva(re3)
-        println(reservaController.getAll())
-        println(reservaController.getByCliente(cl3))
+
+
+
+
+//        var re3: Reserva = Reserva()
+//
+//        re3.cliente = clienteController.getById(cl3).value
+//        re3.numComensales = 15
+//        re3.disposicion = "Terraza"
+//        re3.comentario = "44 Cumpleaños"
+//        re3.grupo = gp1
+//        re3.id = reservaController.addReserva(re3)
+//        println("---------------------------zzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
+//        println(clienteController.getById(cl3).value)
+//        println(reservaController.getAll())
+//        println(reservaController.getByCliente(cl3).toString())
 
     }
 

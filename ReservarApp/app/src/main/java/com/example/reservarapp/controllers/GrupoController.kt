@@ -7,11 +7,17 @@ import com.google.firebase.ktx.Firebase
 
 class GrupoController {
 
-    private fun insertarGrupo(grupo: Grupo) {
+    private fun addGrupo(grupo: Grupo) {
         val db = Firebase.firestore
+        val grupoRef = db.collection("grupos").document()
+        grupo.id = grupoRef.id
+
+
         val datos = hashMapOf(
+            "id" to grupo.id,
             "alias" to grupo.alias,
-            "owner" to grupo.owner
+            "owner" to grupo.owner,
+            "admin" to grupo.admin
         )
         db.collection("grupos").document(grupo.alias).set(datos).addOnSuccessListener {
             Log.i("Firebase", "Datos insertados correctamente")

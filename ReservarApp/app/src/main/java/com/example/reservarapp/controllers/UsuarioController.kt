@@ -10,41 +10,6 @@ import com.google.firebase.ktx.Firebase
 
 class UsuarioController {
 
-//    fun getKey(): Long {
-//        var id: Long = 0
-//        val db = Firebase.firestore
-//        val usuarioRef = db.collection("usuarios")
-//        val q = usuarioRef.orderBy("usuarios.id", Query.Direction.DESCENDING).limit(1)
-//
-//        q.get().addOnSuccessListener { result ->
-//            for (document in result) {
-//                id = document.toObject<Usuario>().id
-//                id += 1
-//            }
-//
-//        }.addOnFailureListener { error ->
-//            Log.e("FirebaseError", error.message.toString())
-//            id = 0
-//        }
-//        return id
-//    }
-
-//    fun addUsuario(usuario: Usuario) {
-//        val db = Firebase.firestore
-//        val datos = hashMapOf(
-//            "id" to getKey(),
-//            "alias" to usuario.alias,
-//            "email" to usuario.email,
-//            "listaGrupos" to usuario.listaGrupos,
-//            "grupoActual" to usuario.grupoActual
-//        )
-//        db.collection("usuarios").add(datos).addOnSuccessListener {
-//            Log.i("Firebase", "Datos insertados correctamente")
-//        }.addOnFailureListener { error ->
-//            Log.e("FirebaseError", error.message.toString())
-//        }
-//    }
-
     fun addUsuario(usuario: Usuario) : String{
 
         val db = Firebase.firestore
@@ -56,6 +21,7 @@ class UsuarioController {
             "id" to usuario.id,
             "alias" to usuario.alias,
             "email" to usuario.email,
+            "password" to usuario.password,
             "listaGrupos" to usuario.listaGrupos,
             "grupoActual" to usuario.grupoActual
         )

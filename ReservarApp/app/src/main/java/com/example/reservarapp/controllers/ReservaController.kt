@@ -29,7 +29,7 @@ class ReservaController {
         val db = Firebase.firestore
 
         val reservasDb = db.collection("reservas")
-        val query = reservasDb.whereEqualTo("cliente.nombre", cl.nombre)
+        val query = reservasDb.whereEqualTo("cliente.nombre", cl.alias)
 
         query.get().addOnSuccessListener { result ->
             for (document in result) {
@@ -50,12 +50,14 @@ class ReservaController {
 
         val datos = hashMapOf(
             "id" to reserva.id,
+            "grupo" to reserva.grupo,
+            "alias" to reserva.alias,
             "cliente" to reserva.cliente,
             "fecha" to reserva.fecha,
             "numComensales" to reserva.numComensales,
             "disposicion" to reserva.disposicion,
             "comentario" to reserva.comentario,
-            "grupo" to reserva.grupo
+
         )
         reservaRef.set(datos).addOnSuccessListener {
             Log.i("Firebase", "Datos insertados correctamente")

@@ -4,17 +4,18 @@ import java.util.Date
 
 class Tarea {
 
-    private var id : Long = 0
-    private var alias : String = ""
-    private var creador : Usuario? = null
-    private var asignadoA : Usuario? = null
-    private var fechaCreado : Date = Date()
-    private var fechaRealizado : Date = Date()
-    private var grupo : Grupo? = null
-    private var comentario : String = ""
+    var id : String = ""
+    var alias : String = ""
+    var owner : String? = ""
+    var asignedTo : String? = ""
+    var createdDate : Date = Date()
+    var doneDate : Date = Date()
+    var grupo : String? = ""
+    var comentario : String = ""
+
 
     override fun toString(): String {
-        return "Tarea(id=$id, alias='$alias', creador=$creador, asignadoA=${asignadoA?.alias}, fechaCreado=$fechaCreado, fechaRealizado=$fechaRealizado, grupo=${grupo?.alias}, comentario='$comentario')"
+        return "Tarea(id='$id', alias='$alias', createdBy=$owner, asignedTo=$asignedTo, createdDate=$createdDate, doneDate=$doneDate, group=$grupo, comentario='$comentario')"
     }
 
 

@@ -1,11 +1,8 @@
 package com.example.reservarapp.controllers
 
-import android.app.DownloadManager.Query
 import android.util.Log
 import com.example.reservarapp.models.Cliente
-import com.example.reservarapp.models.Reserva
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class ClienteController {
@@ -18,7 +15,7 @@ class ClienteController {
 
         val datos = hashMapOf(
             "id" to cliente.id,
-            "nombre" to cliente.nombre,
+            "alias" to cliente.alias,
             "telefono" to cliente.telefono,
             "email" to cliente.email
         )
@@ -31,25 +28,7 @@ class ClienteController {
         return cliente.id
     }
 
-    fun getById(cl: Cliente): Cliente {
 
-        val db = Firebase.firestore
-        val clienteRef = db.collection("clientes")
-        var cliente = Cliente()
-
-        var query = clienteRef.whereEqualTo("cliente.id", cl.id)
-
-        query.get().addOnSuccessListener { result ->
-            for (document in result) {
-                cliente = document.toObject<Cliente>()
-            }
-
-        }.addOnFailureListener { error ->
-            Log.e("FirebaseError", error.message.toString())
-        }
-
-        return cliente
-    }
 
 
 
