@@ -1,11 +1,11 @@
-package com.example.reservarapp.controllers
+package com.example.reservarapp.repositories
 
 import android.util.Log
 import com.example.reservarapp.models.Tarea
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class TareaController {
+class TareaRepo {
 
     fun addTarea(tarea: Tarea): String {
 

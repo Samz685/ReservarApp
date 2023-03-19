@@ -1,15 +1,36 @@
-package com.example.reservarapp.controllers
+package com.example.reservarapp.repositories
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.reservarapp.models.Grupo
 import com.example.reservarapp.models.Usuario
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import java.util.LinkedList
 
-class GrupoController {
+class GrupoRepo {
 
     val db = Firebase.firestore
+
+
+
+    fun getAll() : LiveData<LinkedList<Grupo>>{
+
+        val grupoRef = db.collection("grupos")
+        val dataGrupos = MutableLiveData<LinkedList<Grupo>>()
+
+        grupoRef.get().addOnSuccessListener { result ->
+            val listaGrupos = LinkedList<Grupo>()
+            for (document in result){
+                var grupo = document.toObject<Grupo>()!!
+                listaGrupos.add(grupo)
+            }
+            dataGrupos.value = listaGrupos
+        }
+        return dataGrupos
+    }
 
     fun addGrupo(grupo: Grupo) : String {
 
@@ -82,7 +103,7 @@ class GrupoController {
 
     fun deleteIntegrant(usuario: Usuario, id_grupo: String) {
 
-        var usuarioController = UsuarioController()
+        var usuarioRepo = UsuarioRepo()
         val usuarioRef = db.collection("usuarios")
         val query = usuarioRef.whereEqualTo("id", usuario.id)
         val listaGrupos = mutableListOf<String>()
@@ -99,7 +120,7 @@ class GrupoController {
                 }
             }
             user.listaGrupos = listaGrupos
-            usuarioController.updateUsuarioGrupo(user)
+
 
 
 

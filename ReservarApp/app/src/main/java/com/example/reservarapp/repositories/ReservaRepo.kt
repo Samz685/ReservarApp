@@ -1,4 +1,4 @@
-package com.example.reservarapp.controllers
+package com.example.reservarapp.repositories
 
 import android.util.Log
 import com.example.reservarapp.models.Cliente
@@ -7,7 +7,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
-class ReservaController {
+class ReservaRepo {
 
         fun getAll() {
         var reserva = Reserva()

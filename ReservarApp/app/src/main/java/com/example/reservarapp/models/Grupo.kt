@@ -8,7 +8,7 @@ class Grupo {
     var admin: String? = ""
     var bloqueados: MutableList<String> = mutableListOf()
     override fun toString(): String {
-        return "Grupo(id=$id, alias='$alias', owner=$owner, admin=$admin)"
+        return alias
     }
 
 
