@@ -42,4 +42,8 @@ class UsuarioViewModel : ViewModel() {
         return usuarioRepo.addUsuario(usuario)
 
     }
+
+    fun updateUsuario(usuario: Usuario){
+        usuarioRepo.updateUsuario(usuario)
+    }
 }

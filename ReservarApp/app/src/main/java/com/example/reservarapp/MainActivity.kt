@@ -1,6 +1,7 @@
 package com.example.reservarapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listview: ListView
     var listaUsuarios = LinkedList<Usuario>()
     private lateinit var btnAdd : Button
+    private lateinit var btnUpdate : Button
     private lateinit var etNombre: EditText
     private lateinit var etGrupo: EditText
     private lateinit var spGrupo: Spinner
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private val usuarioViewModel by lazy { ViewModelProvider(this).get(UsuarioViewModel::class.java) }
     private val grupoViewModel by lazy { ViewModelProvider(this).get(GrupoViewModel::class.java) }
     var userTemp = Usuario()
+    var userActual = Usuario()
     var listaGrupos = mutableListOf<Grupo>()
     var grupoTemp = Grupo()
     var grupoActual = Grupo()
@@ -39,13 +42,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnAdd = findViewById(R.id.btnAdd)
+        btnUpdate = findViewById(R.id.btnUpdate)
         etNombre = findViewById(R.id.etNombre)
         etGrupo = findViewById(R.id.etGrupo)
         grupoActual.id = "qczbhdWGiyw5L3lnutRU"
 
 
-        getAllByGroup()
+        getAllUsuarios()
         getAllGrupos()
+
 
         btnAdd.setOnClickListener{
 
@@ -53,7 +58,18 @@ class MainActivity : AppCompatActivity() {
             userTemp.listaGrupos.add(grupoTemp.id)
             usuarioViewModel.addUsuario(userTemp)
             listaUsuarios.clear()
-            getAllByGroup()
+            getAllUsuarios()
+
+
+        }
+
+        btnUpdate.setOnClickListener{
+
+
+            userActual.alias = etNombre.text.toString()
+            usuarioViewModel.updateUsuario(userActual)
+            listaUsuarios.clear()
+            getAllUsuarios()
 
 
         }
@@ -64,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 
         inicializarAdapter()
         comboListener()
+        mostrarMensaje()
 
 
     }
@@ -133,5 +150,22 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    fun mostrarMensaje() {
+
+        listview.setOnItemClickListener() { adapterView, view, position, id ->
+
+            Toast.makeText(
+                this,
+                "Yo soy ${listaUsuarios[position].alias}",
+                Toast.LENGTH_SHORT
+            ).show()
+            userActual = listaUsuarios[position]
+
+
+
+        }
+        registerForContextMenu(listview)
     }
 }

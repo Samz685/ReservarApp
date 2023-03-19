@@ -38,16 +38,24 @@ class UsuarioRepo {
         return usuario.id
     }
 
-    fun updateUsuario(usuario: Usuario){
+    fun updateUsuario(usuario: Usuario) {
 
         var usuarioRef = db.collection("usuarios").document(usuario.id)
 
+
         val datos = hashMapOf(
-            
+            "alias" to usuario.alias,
+            "email" to usuario.email,
+            "password" to usuario.password,
+            "listaGrupos" to usuario.listaGrupos,
+            "grupoActual" to usuario.grupoActual
         )
+        usuarioRef.update(datos).addOnSuccessListener {
+            Log.i("FireBaase", "Usuario Actualizado")
+        }.addOnFailureListener { error ->
+            Log.e("FirebaseError", error.message.toString())
+        }
     }
-
-
     fun getById(id : String) : LiveData<Usuario>{
         var usuarioData = MutableLiveData<Usuario>()
         val usuarioRef = db.collection("usuarios").document(id)
