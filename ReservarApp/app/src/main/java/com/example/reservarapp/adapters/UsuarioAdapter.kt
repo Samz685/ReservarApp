@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.reservarapp.R
 import com.example.reservarapp.models.Usuario
-import java.util.LinkedList
 
-class myListAdapter( private val context: Context,
+class UsuarioAdapter(private val context: Context,
                      private val layout : Int,
                      private val listaUsuarios: List<Usuario>)
                     : BaseAdapter(){
@@ -35,8 +34,8 @@ class myListAdapter( private val context: Context,
             cView = LayoutInflater.from(context).inflate(layout,null)
             holder = ViewHolder(
 
-                cView.findViewById(R.id.bandera),
-                cView.findViewById(R.id.txtUsuario)
+                cView.findViewById(R.id.imgUsuario),
+                cView.findViewById(R.id.txtFrom)
 
 
 

@@ -10,6 +10,7 @@ class Usuario {
     var alias : String = ""
     var email : String = ""
     var password : String = ""
+    var foto: Int = 0
     var listaGrupos : MutableList<String> = mutableListOf()
     var grupoActual : String? = ""
 

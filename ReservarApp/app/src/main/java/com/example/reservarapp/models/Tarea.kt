@@ -6,11 +6,13 @@ class Tarea {
 
     var id : String = ""
     var alias : String = ""
+    var grupo : String? = ""
     var owner : String? = ""
+    var foto : Int = 0
     var asignedTo : String? = ""
     var createdDate : Date = Date()
+    var asignedDate : Date = Date()
     var doneDate : Date = Date()
-    var grupo : String? = ""
     var comentario : String = ""
 
 

@@ -51,11 +51,10 @@ class ReservaRepo {
         val datos = hashMapOf(
             "id" to reserva.id,
             "grupo" to reserva.grupo,
-            "alias" to reserva.alias,
             "cliente" to reserva.cliente,
             "fecha" to reserva.fecha,
             "numComensales" to reserva.numComensales,
-            "disposicion" to reserva.disposicion,
+            "disposicion" to reserva.ubicacion,
             "comentario" to reserva.comentario,
 
         )
