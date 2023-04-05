@@ -37,11 +37,31 @@
                 android:inputType="textPersonName"
                 android:minHeight="48dp" />
 
-            <Button
-                android:id="@+id/btnEnviar"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enviar"/>
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnEnviar"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#114358"
+                    android:hint="Enviar" />
+
+                <Button
+                    android:id="@+id/btnVolver"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#F1ECE7"
+                    android:hint="Volver" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listview_Grupos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

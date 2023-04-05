@@ -41,8 +41,10 @@ class MainActivity : AppCompatActivity() {
     var userTemp = Usuario()
     var userActual = Usuario()
     var listaGrupos = mutableListOf<Grupo>()
-    var grupoTemp = Grupo()
+    var solicitudActual = Solicitud()
     var grupoActual = Grupo()
+    var grupoSeleccionado = Grupo()
+
 
     var listaSolicitudes = mutableListOf<Solicitud>()
 
@@ -55,15 +57,19 @@ class MainActivity : AppCompatActivity() {
         etNombre = findViewById(R.id.etNombre)
         etGrupo = findViewById(R.id.etGrupo)
 //        grupoActual.id = "qczbhdWGiyw5L3lnutRU"
-        grupoActual.alias = "El Pikon"
 
         btnCrearSolicitud = findViewById(R.id.btnCrearSolicitud)
+        grupoActual.alias = "El Pikon"
+        grupoActual.foto = R.drawable.icono
+
 
         getSolicitudesByGroup()
 
 //        getAllUsuarios()
 //        getAllGrupos()
 
+        grupoActual.alias = "El Pikon"
+        grupoActual.foto = R.drawable.icono
         btnCrearSolicitud.setOnClickListener {
             val intent = Intent(this, Solicitud_Crear::class.java)
             startActivity(intent)
@@ -72,11 +78,15 @@ class MainActivity : AppCompatActivity() {
 
         btnAdd.setOnClickListener{
 
-            userTemp.alias = etNombre.text.toString()
-            userTemp.listaGrupos.add(grupoTemp.id)
-            usuarioViewModel.addUsuario(userTemp)
-            listaUsuarios.clear()
-//            getAllUsuarios()
+
+            solicitudActual.estado = etNombre.text.toString()
+            solicitudViewModel.updateSolicitud(solicitudActual)
+            grupoActual.listaMiembros.add(solicitudActual.fromUser)
+            grupoViewModel.addGrupo(grupoActual)
+
+
+            adapterList.notifyDataSetChanged()
+
 
 
         }
@@ -84,10 +94,10 @@ class MainActivity : AppCompatActivity() {
         btnUpdate.setOnClickListener{
 
 
-            userActual.alias = etNombre.text.toString()
-            usuarioViewModel.updateUsuario(userActual)
-            listaUsuarios.clear()
-//            getAllUsuarios()
+
+
+            var grupoID = grupoViewModel.addGrupo(grupoActual)
+
 
 
         }
@@ -97,8 +107,8 @@ class MainActivity : AppCompatActivity() {
 
 
         inicializarAdapter()
-//        comboListener()
-//        mostrarMensaje()
+        seleccionarSolicitud()
+
 
 
     }
@@ -123,12 +133,28 @@ class MainActivity : AppCompatActivity() {
 //    }
 
     fun getSolicitudesByGroup() {
+
         solicitudViewModel.getByGroup(grupoActual).observe(this, Observer {
             for (us in it) {
                 listaSolicitudes.add(us)
             }
             adapterList.notifyDataSetChanged()
         })
+    }
+
+    fun seleccionarSolicitud() {
+
+        listview.setOnItemClickListener() { adapterView, view, position, id ->
+
+            solicitudActual = listaSolicitudes[position]
+            etNombre.setText(solicitudActual.estado.toString())
+
+            grupoSeleccionado = grupoViewModel.findById(listaSolicitudes[position].toGroup) as Grupo
+
+        }
+        registerForContextMenu(listview)
+
+
     }
 
 

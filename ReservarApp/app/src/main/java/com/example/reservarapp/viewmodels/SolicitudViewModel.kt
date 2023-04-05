@@ -45,7 +45,7 @@ class SolicitudViewModel : ViewModel() {
 
     }
 
-    fun updateUsuario(solicitud: Solicitud){
+    fun updateSolicitud(solicitud: Solicitud){
         solicitudRepo.updateSolicitud(solicitud)
     }
 }

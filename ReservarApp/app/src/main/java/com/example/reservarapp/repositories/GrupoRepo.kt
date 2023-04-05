@@ -4,7 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.reservarapp.models.Grupo
+import com.example.reservarapp.models.Solicitud
 import com.example.reservarapp.models.Usuario
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.GenericTypeIndicator
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -32,6 +36,25 @@ class GrupoRepo {
         return dataGrupos
     }
 
+    fun getAllmine(usuario : Usuario) : LiveData<LinkedList<Grupo>>{
+
+        val grupoRef = db.collection("grupos")
+        val dataGrupos = MutableLiveData<LinkedList<Grupo>>()
+
+        val query = grupoRef.whereArrayContains("listaMiembros",usuario.id)
+
+        query.get().addOnSuccessListener { result ->
+            var listaGrupos = LinkedList<Grupo>()
+            for (document in result){
+                var grupo = document.toObject<Grupo>()
+                listaGrupos.add(grupo)
+            }
+            dataGrupos.value = listaGrupos
+        }
+
+        return dataGrupos
+    }
+
     fun addGrupo(grupo: Grupo) : String {
 
         val db = Firebase.firestore
@@ -42,8 +65,10 @@ class GrupoRepo {
         val datos = hashMapOf(
             "id" to grupo.id,
             "alias" to grupo.alias,
+            "foto" to grupo.foto,
             "owner" to grupo.owner,
             "admin" to grupo.admin,
+            "listaMiembros" to grupo.listaMiembros,
             "bloqueados" to grupo.bloqueados
         )
         grupoRef.set(datos).addOnSuccessListener {
@@ -53,6 +78,22 @@ class GrupoRepo {
         }
         return grupo.id
     }
+    fun updateGrupo(grupo: Grupo) {
+
+        var grupoRef = db.collection("grupos").document(grupo.id)
+
+
+        val datos = hashMapOf(
+
+            "listaMiembros" to grupo.listaMiembros
+        )
+        grupoRef.update(datos as Map<String, Any>).addOnSuccessListener {
+            Log.i("FireBase", "Usuario Actualizado")
+        }.addOnFailureListener { error ->
+            Log.e("FirebaseError", error.message.toString())
+        }
+    }
+
 
     fun findByOwner(usuario: Usuario) {
 
@@ -86,19 +127,24 @@ class GrupoRepo {
         }
     }
 
-    fun findById(id: String) {
+    fun findById(id: String) : MutableLiveData<Grupo>{
 
+        var grupoData = MutableLiveData<Grupo>()
         val grupoRef = db.collection("grupos")
         val query = grupoRef.whereEqualTo("owner", id)
 
         query.get().addOnSuccessListener { result ->
+            var grupoA = Grupo()
             for (document in result) {
-                Log.i("Grupo 1", "Grupo: ${document.data["alias"]} || Owner: ${document.data["owner"]} || ID_grupo ${document.data["id"]}")
+                var grupo = document.toObject<Grupo>()
+                grupoA = grupo
             }
+            grupoData.value = grupoA
 
         }.addOnFailureListener { error ->
             Log.e("FirebaseError", error.message.toString())
         }
+        return grupoData
     }
 
     fun deleteIntegrant(usuario: Usuario, id_grupo: String) {
